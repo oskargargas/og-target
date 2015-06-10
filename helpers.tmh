@@ -1,0 +1,212 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// helpers.tmh
+//
+
+include "settings.ttm"
+
+// Definitions
+
+define Trim_Switch_Mode_TRIM               0
+define Trim_Switch_Mode_POV                1
+define Trim_Switch_Mode_AUX1               2
+define Trim_Switch_Mode_AUX2               3
+
+// Helpers
+
+char isSMMPressed() {
+    return Joystick[S3] & Joystick[S4];
+}
+
+int SetJoystickCurves(float zoom) {
+    SetSCurve(&Joystick, JOYX, JOY_X_LEFT_DEADZONE, JOY_X_CENTER_DEADZONE, JOY_X_RIGHT_DEADZONE, JOY_X_CURVE, zoom);
+    SetSCurve(&Joystick, JOYY, JOY_Y_LEFT_DEADZONE, JOY_Y_CENTER_DEADZONE, JOY_Y_RIGHT_DEADZONE, JOY_Y_CURVE, zoom);
+}
+
+int SetDefaults() {
+    SetJoystickCurves(0);
+    Trim_Switch_Mode = Trim_Switch_Mode_DEFAULT;
+    
+    // Release all used buttons
+    
+    ActKey(Trim_Nose_Down);
+    ActKey(POV_UP);
+    ActKey(POV_AUX1_UP);
+	ActKey(POV_AUX2_UP);
+	
+	ActKey(Trim_Right_Wing_Down);
+	ActKey(POV_RIGHT);
+	ActKey(POV_AUX1_RIGHT);
+	ActKey(POV_AUX2_RIGHT);
+		 
+	ActKey(Trim_Nose_Up);
+    ActKey(POV_DOWN);
+    ActKey(POV_AUX1_DOWN);
+	ActKey(POV_AUX2_DOWN);
+		
+	ActKey(Trim_Left_Wing_Down);
+    ActKey(POV_LEFT);
+    ActKey(POV_AUX1_LEFT);
+	ActKey(POV_AUX2_LEFT);
+		
+	ActKey(Data_Management_UP);
+	ActKey(Data_Management_RIGHT);
+	ActKey(Data_Management_DOWN);
+	ActKey(Data_Management_LEFT);
+}
+
+// Trigger Handlers
+
+int HandleTG1() {
+    if (isSMMPressed()) {
+        // Do nothing
+    } else if (Joystick[TG1]) {
+        ActKey(KEYON+Trigger_1);
+    } else {
+        ActKey(Trigger_1);
+    }
+}
+
+int HandleTG2() {
+    if (isSMMPressed()) {
+        SetDefaults();
+    } else if (Joystick[TG2]) {
+        ActKey(KEYON+Trigger_2);
+    } else {
+        ActKey(Trigger_2);
+    }
+}
+
+// Trim Switch Handlers
+
+char Trim_Switch_Mode = Trim_Switch_Mode_DEFAULT;
+
+int HandleH1U() {
+    if (isSMMPressed()) {
+        Trim_Switch_Mode = Trim_Switch_Mode_POV;
+    } else if (Joystick[H1U]) {
+        if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
+            ActKey(KEYON+Trim_Nose_Down);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
+            ActKey(KEYON+POV_UP);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
+			ActKey(KEYON+POV_AUX1_UP);
+		} else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX2) {
+			ActKey(KEYON+POV_AUX2_UP);
+		}
+    } else {
+		ActKey(Trim_Nose_Down);
+        ActKey(POV_UP);
+        ActKey(POV_AUX1_UP);
+		ActKey(POV_AUX2_UP);
+    }
+}
+
+int HandleH1R() {
+    if (isSMMPressed()) {
+        Trim_Switch_Mode = Trim_Switch_Mode_AUX1;
+    } else if (Joystick[H1R]) {
+        if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
+            ActKey(KEYON+Trim_Right_Wing_Down);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
+            ActKey(KEYON+POV_RIGHT);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
+			ActKey(KEYON+POV_AUX1_RIGHT);
+		} else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX2) {
+			ActKey(KEYON+POV_AUX2_RIGHT);
+		}
+    } else {
+        ActKey(Trim_Right_Wing_Down);
+		ActKey(POV_RIGHT);
+		ActKey(POV_AUX1_RIGHT);
+		ActKey(POV_AUX2_RIGHT);
+    }
+}
+
+int HandleH1D() {
+    if (isSMMPressed()) {
+        Trim_Switch_Mode = Trim_Switch_Mode_TRIM;
+    } else if (Joystick[H1D]) {
+        if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
+			ActKey(KEYON+Trim_Nose_Up);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
+            ActKey(KEYON+POV_DOWN);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
+			ActKey(KEYON+POV_AUX1_DOWN);
+		} else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX2) {
+			ActKey(KEYON+POV_AUX2_DOWN);
+		}
+    } else {
+        ActKey(Trim_Nose_Up);
+        ActKey(POV_DOWN);
+        ActKey(POV_AUX1_DOWN);
+		ActKey(POV_AUX2_DOWN);
+    }
+}
+
+int HandleH1L() {
+    if (isSMMPressed()) {
+        Trim_Switch_Mode = Trim_Switch_Mode_AUX2;
+    } else if (Joystick[H1L]) {
+        if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
+			ActKey(KEYON+Trim_Left_Wing_Down);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
+            ActKey(KEYON+POV_LEFT);
+        } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
+			ActKey(KEYON+POV_AUX1_LEFT);
+		} else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX2) {
+			ActKey(KEYON+POV_AUX2_LEFT);
+		}
+    } else {
+		ActKey(Trim_Left_Wing_Down);
+        ActKey(POV_LEFT);
+        ActKey(POV_AUX1_LEFT);
+		ActKey(POV_AUX2_LEFT);
+    }
+}
+
+// Data Management Handlers
+
+int HandleH3U() {
+    if (isSMMPressed()) {
+        SetJoystickCurves(0);
+    } else if (Joystick[H3U]) {
+        ActKey(KEYON+Data_Management_UP);
+    } else {
+        ActKey(Data_Management_UP);
+    }
+}
+
+int HandleH3R() {
+    if (isSMMPressed()) {
+        SetJoystickCurves(-1);
+    } else if (Joystick[H3R]) {
+        ActKey(KEYON+Data_Management_RIGHT);
+    } else {
+        ActKey(Data_Management_RIGHT);
+    }
+}
+
+int HandleH3D() {
+    if (isSMMPressed()) {
+        SetJoystickCurves(-2);
+    } else if (Joystick[H3D]) {
+        ActKey(KEYON+Data_Management_DOWN);
+    } else {
+        ActKey(Data_Management_DOWN);
+    }
+}
+
+int HandleH3L() {
+    if (isSMMPressed()) {
+        SetJoystickCurves(-3);
+    } else if (Joystick[H3L]) {
+        ActKey(KEYON+Data_Management_LEFT);
+    } else {
+        ActKey(Data_Management_LEFT);
+    }
+}

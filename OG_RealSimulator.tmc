@@ -1,0 +1,90 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// OG_RealSimulator.tmc
+//
+
+include "target.tmh"
+include "helpers.tmh"
+
+int main() {
+    // Exclude unused devices
+    
+    Configure(&HCougar,  MODE_EXCLUDED);
+    // Configure(&Joystick, MODE_EXCLUDED);
+    Configure(&Throttle, MODE_EXCLUDED);
+    Configure(&T16000,   MODE_EXCLUDED);
+    Configure(&LMFD,     MODE_EXCLUDED);
+    Configure(&RMFD,     MODE_EXCLUDED);
+    
+    // Initialize
+    
+    if(Init(&EventHandle)) return 1;
+    
+    SetKBRate(DEFAULT_PULSE_LENGHT, DEFAULT_DELAY_LENGTH);  // Set default PULSE and DELAY length
+    SetKBLayout(KB_ENG);                                    // Set keyboard layout
+    SetShiftButton(0, 0, 0, 0, 0, 0);                       // Set layer shift button
+    
+    // Map joystick axes
+    
+    MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    
+    SetJoystickCurves(0);
+    
+    // Custom key mappings
+    
+	MapKey (&Joystick, TG1, EXEC("HandleTG1();"));
+    MapKeyR(&Joystick, TG1, EXEC("HandleTG1();"));
+    
+    MapKey (&Joystick, TG2, EXEC("HandleTG2();"));
+    MapKeyR(&Joystick, TG2, EXEC("HandleTG2();"));
+	
+	MapKey (&Joystick, S2, Weapon_Release);
+	MapKey (&Joystick, S3, Nose_Wheel_Steering);
+	MapKey (&Joystick, S4, Pinky_Lever);
+	MapKey (&Joystick, S1, Master_Mode_Control);
+	MapKey (&Joystick, S1, TEMPO(Master_Mode_Control, Master_Mode_Control_LONG, Master_Mode_Control_DELAY));
+	
+	MapKey (&Joystick, H2U, Target_Management_UP);
+	MapKey (&Joystick, H2R, Target_Management_RIGHT);
+	MapKey (&Joystick, H2D, Target_Management_DOWN);
+	MapKey (&Joystick, H2L, Target_Management_LEFT);
+    
+    MapKey (&Joystick, H3U, EXEC("HandleH3U();"));
+    MapKeyR(&Joystick, H3U, EXEC("HandleH3U();"));
+    
+    MapKey (&Joystick, H3R, EXEC("HandleH3R();"));
+    MapKeyR(&Joystick, H3R, EXEC("HandleH3R();"));
+    
+    MapKey (&Joystick, H3D, EXEC("HandleH3D();"));
+    MapKeyR(&Joystick, H3D, EXEC("HandleH3D();"));
+    
+    MapKey (&Joystick, H3L, EXEC("HandleH3L();"));
+    MapKeyR(&Joystick, H3L, EXEC("HandleH3L();"));
+	
+	MapKey (&Joystick, H4U, Countermeasures_Management_UP);
+	MapKey (&Joystick, H4R, Countermeasures_Management_RIGHT);
+	MapKey (&Joystick, H4D, Countermeasures_Management_DOWN);
+	MapKey (&Joystick, H4L, Countermeasures_Management_LEFT);
+	MapKey (&Joystick, H4P, Countermeasures_Management_CLICK);
+	
+	MapKey (&Joystick, H1U, EXEC("HandleH1U();"));
+	MapKeyR(&Joystick, H1U, EXEC("HandleH1U();"));
+	
+    MapKey (&Joystick, H1R, EXEC("HandleH1R();"));
+	MapKeyR(&Joystick, H1R, EXEC("HandleH1R();"));
+	
+	MapKey (&Joystick, H1D, EXEC("HandleH1D();"));
+	MapKeyR(&Joystick, H1D, EXEC("HandleH1D();"));
+	
+	MapKey (&Joystick, H1L, EXEC("HandleH1L();"));
+	MapKeyR(&Joystick, H1L, EXEC("HandleH1L();"));
+}
+
+int EventHandle(int type, alias o, int x) {
+    DefaultMapping(&o, x);
+}
