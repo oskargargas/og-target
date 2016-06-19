@@ -1,0 +1,119 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// settings/default.tmh
+//
+
+include "bindings/default.tmh"
+
+// Warthog Joystick buttons mapping
+
+define Trigger_1                               DX1
+define Trigger_2                               DX6
+
+define Weapon_Release                          DX2
+define Nose_Wheel_Steering                     0   // DX3
+define Pinky_Lever                             0   // DX4
+define Master_Mode_Control                     DX5
+
+define Target_Management_UP                    DX7
+define Target_Management_RIGHT                 DX8
+define Target_Management_DOWN                  DX9
+define Target_Management_LEFT                  DX10
+
+define Data_Management_UP                      DX11
+define Data_Management_RIGHT                   DX12
+define Data_Management_DOWN                    DX13
+define Data_Management_LEFT                    DX14
+
+define Countermeasures_Management_UP           DX15
+define Countermeasures_Management_RIGHT        DX16
+define Countermeasures_Management_DOWN         DX17
+define Countermeasures_Management_LEFT         DX18
+define Countermeasures_Management_CLICK        DX19
+
+define Trim_Nose_Down                          DX20
+define Trim_Right_Wing_Down                    DX21
+define Trim_Nose_Up                            DX22
+define Trim_Left_Wing_Down                     DX23
+
+define Trim_Nose_Down_MOD                      DXHATUP
+define Trim_Right_Wing_Down_MOD                DXHATRIGHT
+define Trim_Nose_Up_MOD                        DXHATDOWN
+define Trim_Left_Wing_Down_MOD                 DXHATLEFT
+
+define POV_UP                                  DXHATUP
+define POV_RIGHT                               DXHATRIGHT
+define POV_DOWN                                DXHATDOWN
+define POV_LEFT                                DXHATLEFT
+
+define POV_AUX1_UP                             0
+define POV_AUX1_RIGHT                          0
+define POV_AUX1_DOWN                           0
+define POV_AUX1_LEFT                           0
+
+define POV_AUX2_UP                             0
+define POV_AUX2_RIGHT                          0
+define POV_AUX2_DOWN                           0
+define POV_AUX2_LEFT                           0
+
+// Cougar Throttle buttons mapping
+
+define RadioSwitch_UHF                         DX24
+define RadioSwitch_IFF_IN                      DX25
+define RadioSwitch_VHF                         DX26
+define RadioSwitch_IFF_OUT                     DX27
+
+define Dogfight_FORWARD                        DX28
+define Dogfight_BACKWARD                       DX29
+define Dogfight_MIDDLE                         0
+
+define Cougar_Speedbreak_FORWARD               DX30
+define Cougar_Speedbreak_BACKWARD              DX31
+define Cougar_Speedbreak_MIDDLE                0
+
+define RDR_Cursor_PRESSED                      DX32
+define RNG_PRESSED                             DX4
+
+// Warthog Throttle buttons mapping
+
+define Pinky_Switch_FORWARD                    0
+define Pinky_Switch_MIDDLE                     0
+define Pinky_Switch_BACKWARD                   0
+
+define Left_Throttle_Button                    0
+define Slew_Control_PRESSED                    0
+
+define Coolie_Switch_UP                        0
+define Coolie_Switch_RIGHT                     0
+define Coolie_Switch_DOWN                      0
+define Coolie_Switch_LEFT                      0
+
+define MIC_Switch_PRESSED                      0
+define MIC_Switch_UP                           0
+define MIC_Switch_RIGHT                        0
+define MIC_Switch_DOWN                         0
+define MIC_Switch_LEFT                         0
+
+define Speedbreak_FORWARD                      0
+define Speedbreak_BACKWARD                     0
+
+define BoatSwitch_FORWARD                      0
+define BoatSwitch_BACKWARD                     0
+
+define ChineseHat_FORWARD                      0
+define ChineseHat_BACKWARD                     0
+
+define EngineFuelFlow_LEFT                     0
+define EngineFuelFlow_RIGHT                    0
+
+define LandingGearHornSilence                  0
+
+define EACSwitch_ON                            0
+define EACSwitch_OFF                           0
+
+define RadarSwitch_ON                          0
+define RadarSwitch_OFF                         0

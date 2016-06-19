@@ -7,7 +7,7 @@
 // helpers.tmh
 //
 
-include "settings.ttm"
+include "settings/settings.tmh"
 
 // Definitions
 
@@ -18,13 +18,42 @@ define Trim_Switch_Mode_AUX2               3
 
 // Helpers
 
+char isLeaverPressed() {
+    return Joystick[S4];
+}
+
 char isSMMPressed() {
     return Joystick[S3] & Joystick[S4];
+}
+
+int MapKeyAndR(alias dev, int btnidx, int key = 0, int key_r = 0) {
+    MapKey(&dev, btnidx, key);
+    
+    if (key_r) {
+        MapKeyR(&dev, btnidx, key_r);
+    } else if (key & PROC) {
+        MapKeyR(&dev, btnidx, PULSE+key);
+    }
 }
 
 int SetJoystickCurves(float zoom) {
     SetSCurve(&Joystick, JOYX, JOY_X_LEFT_DEADZONE, JOY_X_CENTER_DEADZONE, JOY_X_RIGHT_DEADZONE, JOY_X_CURVE, zoom);
     SetSCurve(&Joystick, JOYY, JOY_Y_LEFT_DEADZONE, JOY_Y_CENTER_DEADZONE, JOY_Y_RIGHT_DEADZONE, JOY_Y_CURVE, zoom);
+}
+
+int SetThrottleCurvesToZeroAfterburnerDetent() {
+    SetJCurve(&Throttle, THR_LEFT,  66, 100);
+    SetJCurve(&Throttle, THR_RIGHT, 66, 100);
+}
+
+int SetMiniJoyCurves(float zoom) {
+    SetSCurve(&Throttle, SCX, MINI_JOY_X_LEFT_DEADZONE, MINI_JOY_X_CENTER_DEADZONE, MINI_JOY_X_RIGHT_DEADZONE, MINI_JOY_X_CURVE, zoom);
+    SetSCurve(&Throttle, SCY, MINI_JOY_Y_LEFT_DEADZONE, MINI_JOY_Y_CENTER_DEADZONE, MINI_JOY_Y_RIGHT_DEADZONE, MINI_JOY_Y_CURVE, zoom);
+}
+
+int SetRDRJoystickCurves(float zoom) {
+    SetSCurve(&HCougar, JOYX, RDR_JOY_X_LEFT_DEADZONE, RDR_JOY_X_CENTER_DEADZONE, RDR_JOY_X_RIGHT_DEADZONE, RDR_JOY_X_CURVE, zoom);
+    SetSCurve(&HCougar, JOYY, RDR_JOY_Y_LEFT_DEADZONE, RDR_JOY_Y_CENTER_DEADZONE, RDR_JOY_Y_RIGHT_DEADZONE, RDR_JOY_Y_CURVE, zoom);
 }
 
 int SetDefaults() {
@@ -59,10 +88,14 @@ int SetDefaults() {
 	ActKey(Data_Management_LEFT);
 }
 
+//
+// Warthog - Joystisck
+//
+
 // Trigger Handlers
 
 int HandleTG1() {
-    if (isSMMPressed()) {
+    if (isSMMPressed() | isLeaverPressed()) {
         // Do nothing
     } else if (Joystick[TG1]) {
         ActKey(KEYON+Trigger_1);
@@ -90,7 +123,11 @@ int HandleH1U() {
         Trim_Switch_Mode = Trim_Switch_Mode_POV;
     } else if (Joystick[H1U]) {
         if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
-            ActKey(KEYON+Trim_Nose_Down);
+            if (isLeaverPressed()) {
+                ActKey(KEYON+Trim_Nose_Down_MOD);
+            } else {
+                ActKey(KEYON+Trim_Nose_Down);
+            }
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
             ActKey(KEYON+POV_UP);
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
@@ -100,6 +137,7 @@ int HandleH1U() {
 		}
     } else {
 		ActKey(Trim_Nose_Down);
+		ActKey(Trim_Nose_Down_MOD);
         ActKey(POV_UP);
         ActKey(POV_AUX1_UP);
 		ActKey(POV_AUX2_UP);
@@ -111,7 +149,11 @@ int HandleH1R() {
         Trim_Switch_Mode = Trim_Switch_Mode_AUX1;
     } else if (Joystick[H1R]) {
         if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
-            ActKey(KEYON+Trim_Right_Wing_Down);
+            if (isLeaverPressed()) {
+                ActKey(KEYON+Trim_Right_Wing_Down_MOD);
+            } else {
+                ActKey(KEYON+Trim_Right_Wing_Down);
+            }
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
             ActKey(KEYON+POV_RIGHT);
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
@@ -121,6 +163,7 @@ int HandleH1R() {
 		}
     } else {
         ActKey(Trim_Right_Wing_Down);
+        ActKey(Trim_Right_Wing_Down_MOD);
 		ActKey(POV_RIGHT);
 		ActKey(POV_AUX1_RIGHT);
 		ActKey(POV_AUX2_RIGHT);
@@ -132,7 +175,11 @@ int HandleH1D() {
         Trim_Switch_Mode = Trim_Switch_Mode_TRIM;
     } else if (Joystick[H1D]) {
         if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
-			ActKey(KEYON+Trim_Nose_Up);
+            if (isLeaverPressed()) {
+                ActKey(KEYON+Trim_Nose_Up_MOD);
+            } else {
+			    ActKey(KEYON+Trim_Nose_Up);
+            }
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
             ActKey(KEYON+POV_DOWN);
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
@@ -142,6 +189,7 @@ int HandleH1D() {
 		}
     } else {
         ActKey(Trim_Nose_Up);
+        ActKey(Trim_Nose_Up_MOD);
         ActKey(POV_DOWN);
         ActKey(POV_AUX1_DOWN);
 		ActKey(POV_AUX2_DOWN);
@@ -153,7 +201,11 @@ int HandleH1L() {
         Trim_Switch_Mode = Trim_Switch_Mode_AUX2;
     } else if (Joystick[H1L]) {
         if (Trim_Switch_Mode == Trim_Switch_Mode_TRIM) {
-			ActKey(KEYON+Trim_Left_Wing_Down);
+            if (isLeaverPressed()) {
+                ActKey(KEYON+Trim_Left_Wing_Down_MOD);
+            } else {
+                ActKey(KEYON+Trim_Left_Wing_Down);
+            }
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_POV) {
             ActKey(KEYON+POV_LEFT);
         } else if (Trim_Switch_Mode == Trim_Switch_Mode_AUX1) {
@@ -163,6 +215,7 @@ int HandleH1L() {
 		}
     } else {
 		ActKey(Trim_Left_Wing_Down);
+		ActKey(Trim_Left_Wing_Down_MOD);
         ActKey(POV_LEFT);
         ActKey(POV_AUX1_LEFT);
 		ActKey(POV_AUX2_LEFT);
@@ -209,4 +262,23 @@ int HandleH3L() {
     } else {
         ActKey(Data_Management_LEFT);
     }
+}
+
+//
+// Warthog - Throttle
+//
+
+int slewControlZoom = MINI_JOY_DEFAULT_ZOOM;
+
+int HandleSlewControl() {
+    if (isSMMPressed()) {
+        slewControlZoom = MINI_JOY_DEFAULT_ZOOM;
+    } else if (Throttle[SC] & isLeaverPressed()) {
+        slewControlZoom = slewControlZoom - 1;
+        if (slewControlZoom < -MINI_JOY_MAX_ZOOM) {
+            slewControlZoom = MINI_JOY_DEFAULT_ZOOM;
+        }
+    }
+    
+    SetMiniJoyCurves(slewControlZoom);
 }

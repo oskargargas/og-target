@@ -1,0 +1,125 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// bindings/star_citizen.tmh
+//
+
+//
+// Track IR
+//
+
+define TIR_Center                   F10
+define TIR_Precision                F11
+define TIR_Pause                    F12
+
+//
+// TeamSpeak/Mumble
+//
+
+define TS_PushToTalk                L_CTL+PGUP
+define TS_Mute                      PULSE+L_CTL+PGDN
+
+//
+// Star Citizen
+//
+
+// Flight - Cockpit
+
+define SC_ExitSeat                  'f'
+define SC_Eject                     R_ALT+'l'
+define SC_SelfDestruct              R_ALT+BSP
+define SC_LightsToogle              'o'
+
+// Flight - View
+
+define SC_CameraCycle               INS
+define SC_CameraOrbitCycle          PGUP
+define SC_FreelookToogle            L_CTL+TAB
+define SC_LookBehind                '.'
+define SC_ZoomIn                    DX32
+define SC_ZoomOut                   DX31
+
+// Flight - Movement
+
+define SC_MouseMoveCycle            L_CTL+'c'
+define SC_Boost                     L_SHIFT
+define SC_Spacebrake                SPC
+define SC_MatchVelocity             'm'
+
+define SC_DecoupledToogle           CAPS
+define SC_IFCSSafetiesCycle         L_CTL+CAPS
+define SC_GForceSafetyToogle        L_CTL+F5
+define SC_CommandStabilityToogle    L_CTL+F6
+define SC_ESPToogle                 L_CTL+F7
+
+define SC_SwapYawAndRoll            L_CTL+F8
+
+define SC_StrafeUp                  'r'
+define SC_StrafeDown                'f'
+define SC_StrafeLeft                'q'
+define SC_StrafeRight               'e'
+define SC_StrafeForward             L_CTL+'w'
+define SC_StrafeBackward            L_CTL+'s'
+define SC_StrafeForwardD            'w'
+define SC_StrafeBackwardD           's'
+
+define SC_LandingSystem             'n'
+define SC_Autoland                  'm'
+
+// Flight - Targeting
+
+define SC_LookAhead                 R_ALT+'m'
+define SC_MouseAimModeCycle         R_SHIFT
+define SC_GimbalLock                R_CTL+'g'
+define SC_ReticleFocus              'v'
+define SC_PinFocusedTarget          'g'
+define SC_TargetNearestHostile      'c'
+define SC_TargetFocus               'l'
+
+define SC_CycleTargets              'y'
+define SC_CycleTargetsB             L_CTL+'y'
+define SC_CycleFriendlyTargets      'h'
+define SC_CycleFriendlyTargetsB     L_CTL+'h'
+define SC_CyclePinnedTargets        'u'                                                                                                                 
+define SC_CyclePinnedTargetsB       L_CTL+'u'
+define SC_CycleHostileTargets       't'
+define SC_CycleHostileTargetsB      L_CTL+'t'
+
+// Flight - Weapons
+
+define SC_FireWeaponGroup_1         MOUSE_LEFT
+define SC_FireWeaponGroup_2         MOUSE_RIGHT
+define SC_FireWeaponGroup_3         MOUSE_BTN4
+define SC_FireWeaponGroup_4         MOUSE_BTN5
+
+define SC_MissileAsquireLock        MOUSE_CENTER
+define SC_MissileLaunch             MOUSE_CENTER
+
+// Flight - Defensive
+
+define SC_CountermeasureLaunch      'z'
+define SC_CountermeasureCycle       'x'
+define SC_ShieldLevelRaiseFront     KP8
+define SC_ShieldLevelRaiseBack      KP2
+define SC_ShieldLevelRaiseLeft      KP4
+define SC_ShieldLevelRaiseRight     KP6
+define SC_ShieldLevelRaiseTop       KP9
+define SC_ShieldLevelRaiseBottom    KP7
+define SC_ShieldLevelReset          KP5
+
+// Flight - Power
+
+define SC_PowerResetDistribution    '0'
+define SC_PowerIncreasePreset_1     '1'
+define SC_PowerIncreasePreset_2     '2'
+define SC_PowerIncreasePreset_3     '3'
+define SC_PowerPresetToogle_1       '4'
+define SC_PowerPresetToogle_2       '5'
+define SC_PowerPresetToogle_3       '6'
+
+// Flight - Radar
+
+define SC_RadarCycleRange           ','

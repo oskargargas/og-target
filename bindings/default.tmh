@@ -1,0 +1,23 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// bindings/default.tmh
+//
+
+//
+// Track IR
+//
+
+define TIR_Center                   F10
+define TIR_Precision                F11
+define TIR_Pause                    F12
+
+//
+// TeamSpeak/Mumble
+//
+
+define TS_PushToTalk                L_CTL+PGUP
+define TS_Mute                      PULSE+L_CTL+PGDN

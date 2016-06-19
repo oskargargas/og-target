@@ -1,0 +1,115 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// settings/star_citizen.tmh
+//
+
+include "bindings/star_citizen.tmh"
+
+// Warthog Joystick buttons mapping
+
+define Trigger_1                               SC_FireWeaponGroup_1
+define Trigger_2                               SC_FireWeaponGroup_2
+
+define Weapon_Release                          SC_MissileLaunch
+define Nose_Wheel_Steering                     0
+define Pinky_Lever                             0
+define Master_Mode_Control                     TEMPO(SC_ReticleFocus, SC_TargetNearestHostile, TEMPO_DELAY)
+
+define Target_Management_UP                    SC_CycleHostileTargets
+define Target_Management_RIGHT                 SC_CycleFriendlyTargets
+define Target_Management_DOWN                  SC_CycleHostileTargetsB
+define Target_Management_LEFT                  SC_CycleFriendlyTargetsB
+
+define Data_Management_UP                      SC_PowerIncreasePreset_2
+define Data_Management_RIGHT                   SC_PowerIncreasePreset_3
+define Data_Management_DOWN                    SC_PowerResetDistribution
+define Data_Management_LEFT                    SC_PowerIncreasePreset_1
+
+define Countermeasures_Management_UP           TEMPO(SC_CountermeasureLaunch, CHAIN(PULSE+SC_CountermeasureLaunch, D(), PULSE+SC_CountermeasureCycle, D(1000), PULSE+SC_CountermeasureLaunch, D(), PULSE+SC_CountermeasureCycle), TEMPO_DELAY)
+define Countermeasures_Management_RIGHT        SC_CyclePinnedTargets
+define Countermeasures_Management_DOWN         SC_CountermeasureCycle
+define Countermeasures_Management_LEFT         SC_PinFocusedTarget
+define Countermeasures_Management_CLICK        SC_CountermeasureCycle
+
+define Trim_Nose_Down                          SC_ShieldLevelRaiseFront
+define Trim_Right_Wing_Down                    SC_ShieldLevelRaiseRight
+define Trim_Nose_Up                            SC_ShieldLevelRaiseBack
+define Trim_Left_Wing_Down                     SC_ShieldLevelRaiseLeft
+
+define POV_UP                                  DXHATUP
+define POV_RIGHT                               DXHATRIGHT
+define POV_DOWN                                DXHATDOWN
+define POV_LEFT                                DXHATLEFT
+
+define POV_AUX1_UP                             0
+define POV_AUX1_RIGHT                          0
+define POV_AUX1_DOWN                           0
+define POV_AUX1_LEFT                           0
+
+define POV_AUX2_UP                             0
+define POV_AUX2_RIGHT                          0
+define POV_AUX2_DOWN                           0
+define POV_AUX2_LEFT                           0
+
+// Warthog Throttle buttons mapping
+
+define Pinky_Switch_FORWARD                    SC_ZoomIn
+define Pinky_Switch_MIDDLE                     0
+define Pinky_Switch_BACKWARD                   SC_ZoomOut
+
+define Left_Throttle_Button                    SC_LookBehind
+define Slew_Control_PRESSED                    SC_Boost
+
+define Coolie_Switch_UP                        SC_StrafeUp
+define Coolie_Switch_RIGHT                     SC_StrafeRight
+define Coolie_Switch_DOWN                      SC_StrafeDown
+define Coolie_Switch_LEFT                      SC_StrafeLeft
+
+define MIC_Switch_PRESSED                      SC_IFCSSafetiesCycle
+define MIC_Switch_UP                           SC_DecoupledToogle
+define MIC_Switch_RIGHT                        SC_GForceSafetyToogle
+define MIC_Switch_DOWN                         SC_CommandStabilityToogle
+define MIC_Switch_LEFT                         SC_ESPToogle
+
+define Speedbreak_FORWARD                      SC_Spacebrake
+define Speedbreak_BACKWARD                     SC_MatchVelocity
+
+define BoatSwitch_FORWARD                      TS_PushToTalk
+define BoatSwitch_BACKWARD                     TS_Mute
+
+define ChineseHat_FORWARD                      TIR_Center
+define ChineseHat_BACKWARD                     TIR_Pause
+
+define EngineFuelFlow_LEFT                     PULSE+SC_SelfDestruct
+define EngineFuelFlow_RIGHT                    PULSE+SC_Eject
+
+define LandingGearHornSilence                  SC_SwapYawAndRoll
+
+define EACSwitch_ON                            PULSE+SC_GimbalLock
+define EACSwitch_OFF                           PULSE+SC_GimbalLock
+
+define RadarSwitch_ON                          PULSE+SC_MouseAimModeCycle
+define RadarSwitch_OFF                         PULSE+SC_MouseAimModeCycle
+
+// Cougar Throttle buttons mapping
+
+define RDR_Cursor_PRESSED                      SC_Boost
+
+define RadioSwitch_VHF                         TEMPO(SC_GimbalLock, PULSE+SC_SwapYawAndRoll, TEMPO_DELAY)
+define RadioSwitch_UHF                         SC_LookBehind
+define RadioSwitch_IFF_OUT                     TEMPO(SC_DecoupledToogle, PULSE+SC_SelfDestruct, TEMPO_DELAY * 3)
+define RadioSwitch_IFF_IN                      TEMPO(SC_IFCSSafetiesCycle, PULSE+SC_Eject, TEMPO_DELAY * 3)
+
+define RNG_PRESSED                             TEMPO(PULSE+TIR_Center, PULSE+TIR_Pause, TEMPO_DELAY)
+
+define Dogfight_FORWARD                        TS_PushToTalk
+define Dogfight_BACKWARD                       TS_Mute
+define Dogfight_MIDDLE                         0
+
+define Cougar_Speedbreak_FORWARD               SC_Spacebrake
+define Cougar_Speedbreak_BACKWARD              SC_MatchVelocity
+define Cougar_Speedbreak_MIDDLE                0

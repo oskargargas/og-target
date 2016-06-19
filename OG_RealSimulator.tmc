@@ -13,13 +13,16 @@ include "helpers.tmh"
 int main() {
     // Exclude unused devices
     
-    Configure(&HCougar,  MODE_EXCLUDED);
-    // Configure(&Joystick, MODE_EXCLUDED);
-    Configure(&Throttle, MODE_EXCLUDED);
-    Configure(&T16000,   MODE_EXCLUDED);
-    Configure(&LMFD,     MODE_EXCLUDED);
-    Configure(&RMFD,     MODE_EXCLUDED);
-    
+    // Configure(&HCougar,      MODE_EXCLUDED);
+    // Configure(&Joystick,     MODE_EXCLUDED);
+    // Configure(&Throttle,     MODE_EXCLUDED);
+       Configure(&T16000,       MODE_EXCLUDED);
+	   Configure(&T16000L,      MODE_EXCLUDED);
+    // Configure(&LMFD,         MODE_EXCLUDED);
+    // Configure(&RMFD,         MODE_EXCLUDED);
+	   Configure(&TFRPRudder,   MODE_EXCLUDED);
+	   Configure(&TWCSThrottle, MODE_EXCLUDED);
+
     // Initialize
     
     if(Init(&EventHandle)) return 1;
@@ -27,62 +30,135 @@ int main() {
     SetKBRate(DEFAULT_PULSE_LENGHT, DEFAULT_DELAY_LENGTH);  // Set default PULSE and DELAY length
     SetKBLayout(KB_ENG);                                    // Set keyboard layout
     SetShiftButton(0, 0, 0, 0, 0, 0);                       // Set layer shift button
-    
+        
+    MapWarthogJoystick();
+    // MapWarthogThrottle();
+    MapCougarThrottle();
+}
+
+int MapWarthogJoystick() {
     // Map joystick axes
     
     MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
     MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
     
+    RotateDXAxis(DX_X_AXIS, DX_Y_AXIS, -15);
+    
     SetJoystickCurves(0);
     
     // Custom key mappings
     
-	MapKey (&Joystick, TG1, EXEC("HandleTG1();"));
-    MapKeyR(&Joystick, TG1, EXEC("HandleTG1();"));
+    MapKeyAndR(&Joystick, TG1, EXEC("HandleTG1();"));
+    MapKeyAndR(&Joystick, TG2, EXEC("HandleTG2();"));
     
-    MapKey (&Joystick, TG2, EXEC("HandleTG2();"));
-    MapKeyR(&Joystick, TG2, EXEC("HandleTG2();"));
+	MapKey(&Joystick, S2, Weapon_Release);
+	MapKey(&Joystick, S3, Nose_Wheel_Steering);
+	MapKey(&Joystick, S4, Pinky_Lever);
+	MapKey(&Joystick, S1, Master_Mode_Control);
 	
-	MapKey (&Joystick, S2, Weapon_Release);
-	MapKey (&Joystick, S3, Nose_Wheel_Steering);
-	MapKey (&Joystick, S4, Pinky_Lever);
-	MapKey (&Joystick, S1, Master_Mode_Control);
-	MapKey (&Joystick, S1, TEMPO(Master_Mode_Control, Master_Mode_Control_LONG, Master_Mode_Control_DELAY));
-	
-	MapKey (&Joystick, H2U, Target_Management_UP);
-	MapKey (&Joystick, H2R, Target_Management_RIGHT);
-	MapKey (&Joystick, H2D, Target_Management_DOWN);
-	MapKey (&Joystick, H2L, Target_Management_LEFT);
+	MapKey(&Joystick, H2U, Target_Management_UP);
+	MapKey(&Joystick, H2R, Target_Management_RIGHT);
+	MapKey(&Joystick, H2D, Target_Management_DOWN);
+	MapKey(&Joystick, H2L, Target_Management_LEFT);
     
-    MapKey (&Joystick, H3U, EXEC("HandleH3U();"));
-    MapKeyR(&Joystick, H3U, EXEC("HandleH3U();"));
+    MapKeyAndR(&Joystick, H3U, EXEC("HandleH3U();"));
+    MapKeyAndR(&Joystick, H3R, EXEC("HandleH3R();"));
+    MapKeyAndR(&Joystick, H3D, EXEC("HandleH3D();"));
+    MapKeyAndR(&Joystick, H3L, EXEC("HandleH3L();"));
+	
+	MapKey(&Joystick, H4P, Countermeasures_Management_CLICK);
+	MapKey(&Joystick, H4U, Countermeasures_Management_UP);
+	MapKey(&Joystick, H4R, Countermeasures_Management_RIGHT);
+	MapKey(&Joystick, H4D, Countermeasures_Management_DOWN);
+	MapKey(&Joystick, H4L, Countermeasures_Management_LEFT);
+		
+	MapKeyAndR(&Joystick, H1U, EXEC("HandleH1U();"));
+	MapKeyAndR(&Joystick, H1R, EXEC("HandleH1R();"));
+	MapKeyAndR(&Joystick, H1D, EXEC("HandleH1D();"));
+	MapKeyAndR(&Joystick, H1L, EXEC("HandleH1L();"));
+}
+
+int MapWarthogThrottle() {
+    // Map throttle axes
     
-    MapKey (&Joystick, H3R, EXEC("HandleH3R();"));
-    MapKeyR(&Joystick, H3R, EXEC("HandleH3R();"));
+    MapAxis(&Throttle, THR_LEFT,  DX_THROTTLE_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&Throttle, THR_RIGHT, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&Throttle, THR_FC,    DX_Z_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
     
-    MapKey (&Joystick, H3D, EXEC("HandleH3D();"));
-    MapKeyR(&Joystick, H3D, EXEC("HandleH3D();"));
+    MapAxis(&Throttle, SCX,       DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&Throttle, SCY,       DX_YROT_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+    SetMiniJoyCurves(0);
     
-    MapKey (&Joystick, H3L, EXEC("HandleH3L();"));
-    MapKeyR(&Joystick, H3L, EXEC("HandleH3L();"));
+    MapKey(&Throttle, PSF, Pinky_Switch_FORWARD);
+    MapKey(&Throttle, PSM, Pinky_Switch_MIDDLE);
+    MapKey(&Throttle, PSB, Pinky_Switch_BACKWARD);
+    
+    MapKey(&Throttle, LTB, Left_Throttle_Button);
+    MapKey(&Throttle, SC, Slew_Control_PRESSED);
+    
+    MapKey(&Throttle, CSU, Coolie_Switch_UP);
+	MapKey(&Throttle, CSR, Coolie_Switch_RIGHT);
+	MapKey(&Throttle, CSD, Coolie_Switch_DOWN);
+	MapKey(&Throttle, CSL, Coolie_Switch_LEFT);
+    
+    MapKey(&Throttle, MSU, MIC_Switch_UP);
+	MapKey(&Throttle, MSR, MIC_Switch_RIGHT);
+	MapKey(&Throttle, MSD, MIC_Switch_DOWN);
+	MapKey(&Throttle, MSL, MIC_Switch_LEFT);
+	MapKey(&Throttle, MSP, MIC_Switch_PRESSED);
 	
-	MapKey (&Joystick, H4U, Countermeasures_Management_UP);
-	MapKey (&Joystick, H4R, Countermeasures_Management_RIGHT);
-	MapKey (&Joystick, H4D, Countermeasures_Management_DOWN);
-	MapKey (&Joystick, H4L, Countermeasures_Management_LEFT);
-	MapKey (&Joystick, H4P, Countermeasures_Management_CLICK);
+	MapKey(&Throttle, SPDF, Speedbreak_FORWARD);
+	MapKey(&Throttle, SPDB, Speedbreak_BACKWARD);
 	
-	MapKey (&Joystick, H1U, EXEC("HandleH1U();"));
-	MapKeyR(&Joystick, H1U, EXEC("HandleH1U();"));
+	MapKeyAndR(&Throttle, BSF, BoatSwitch_FORWARD);
+	MapKeyAndR(&Throttle, BSB, BoatSwitch_BACKWARD, BoatSwitch_BACKWARD);
 	
-    MapKey (&Joystick, H1R, EXEC("HandleH1R();"));
-	MapKeyR(&Joystick, H1R, EXEC("HandleH1R();"));
+	MapKey(&Throttle, CHF, ChineseHat_FORWARD);
+	MapKey(&Throttle, CHB, ChineseHat_BACKWARD);
 	
-	MapKey (&Joystick, H1D, EXEC("HandleH1D();"));
-	MapKeyR(&Joystick, H1D, EXEC("HandleH1D();"));
-	
-	MapKey (&Joystick, H1L, EXEC("HandleH1L();"));
-	MapKeyR(&Joystick, H1L, EXEC("HandleH1L();"));
+    MapKey(&Throttle, EFLNORM, EngineFuelFlow_LEFT);
+    MapKey(&Throttle, EFRNORM, EngineFuelFlow_RIGHT);
+    
+    MapKey(&Throttle, LDGH, LandingGearHornSilence);
+    
+    MapKey(&Throttle, EACON, EACSwitch_ON);
+    MapKey(&Throttle, EACOFF, EACSwitch_OFF);
+    
+    MapKey(&Throttle, RDRNRM, RadarSwitch_ON);
+    MapKey(&Throttle, RDRDIS, RadarSwitch_OFF);
+}
+
+int MapCougarThrottle() {
+    MapAxis(&HCougar, THROTTLE,  DX_THROTTLE_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    
+    MapAxis(&HCougar, JOYX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&HCougar, JOYY, DX_YROT_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+    SetRDRJoystickCurves(0);
+    // RotateDXAxis(DX_XROT_AXIS, DX_YROT_AXIS, 45);
+    
+    MapAxis(&HCougar, MAN_RNG, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    MapAxis(&HCougar, RDR_X, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+    
+    // KeyAxis(&HCougar, RDR_X, 0, AXMAP1(
+    //     20, PULSE+SC_ZoomOut, PULSE+SC_ZoomIn, 0
+    // ));
+
+    MapKey(&HCougar, T1, RDR_Cursor_PRESSED);
+    
+    MapKey(&HCougar, T2, RadioSwitch_VHF);
+    MapKey(&HCougar, T3, RadioSwitch_UHF);
+    MapKey(&HCougar, T4, RadioSwitch_IFF_IN);
+    MapKey(&HCougar, T5, RadioSwitch_IFF_OUT);
+    
+    MapKey(&HCougar, T6, RNG_PRESSED);
+    
+    MapKey(&HCougar, T7, Dogfight_BACKWARD);
+    MapKey(&HCougar, T8, Dogfight_FORWARD);
+    MapKey(&HCougar, DFM, Dogfight_MIDDLE);
+    
+    MapKey(&HCougar, T9,  Cougar_Speedbreak_BACKWARD);
+    MapKey(&HCougar, T10, Cougar_Speedbreak_FORWARD);
+    MapKey(&HCougar, 47, Cougar_Speedbreak_MIDDLE);
 }
 
 int EventHandle(int type, alias o, int x) {

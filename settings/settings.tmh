@@ -1,0 +1,51 @@
+//
+// OG_RealSimulator 0.1 © Oskar Gargas <og@oglabs.pl>
+//
+// TARGET Profile created to mimic behaviours of custom scripting
+// build into RealSimulator FSSB R3 http://realsimulator.com/html/fssb_r3_warthog.html
+//
+// settings/settings.tmh
+//
+
+// include "settings/star_citizen.tmh"
+// include "settings/elite_dangerous.tmh"
+include "settings/default.tmh"
+
+define Trim_Switch_Mode_DEFAULT                Trim_Switch_Mode_TRIM    // Default behaviour of Trim Switch. Available options: TRIM, POV, AUX1, AUX2.
+define TEMPO_DELAY                             1000                     // Delay before TEMPO Button long press action triggers.
+
+define DEFAULT_PULSE_LENGHT                    25
+define DEFAULT_DELAY_LENGTH                    33
+
+define JOY_X_LEFT_DEADZONE                     0
+define JOY_X_CENTER_DEADZONE                   1
+define JOY_X_RIGHT_DEADZONE                    0
+define JOY_X_CURVE                             2
+
+define JOY_Y_LEFT_DEADZONE                     0
+define JOY_Y_CENTER_DEADZONE                   1
+define JOY_Y_RIGHT_DEADZONE                    0
+define JOY_Y_CURVE                             2
+
+define MINI_JOY_DEFAULT_ZOOM                   0
+define MINI_JOY_MAX_ZOOM                       4
+
+define MINI_JOY_X_LEFT_DEADZONE                0
+define MINI_JOY_X_CENTER_DEADZONE              50
+define MINI_JOY_X_RIGHT_DEADZONE               0
+define MINI_JOY_X_CURVE                        0
+
+define MINI_JOY_Y_LEFT_DEADZONE                0
+define MINI_JOY_Y_CENTER_DEADZONE              50
+define MINI_JOY_Y_RIGHT_DEADZONE               0
+define MINI_JOY_Y_CURVE                        0
+
+define RDR_JOY_X_LEFT_DEADZONE                 1
+define RDR_JOY_X_CENTER_DEADZONE               5
+define RDR_JOY_X_RIGHT_DEADZONE                1
+define RDR_JOY_X_CURVE                         2
+
+define RDR_JOY_Y_LEFT_DEADZONE                 1
+define RDR_JOY_Y_CENTER_DEADZONE               5
+define RDR_JOY_Y_RIGHT_DEADZONE                1
+define RDR_JOY_Y_CURVE                         2
