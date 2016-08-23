@@ -11,13 +11,14 @@
 // Track IR
 //
 
-define TIR_Center                   F10
-define TIR_Precision                F11
-define TIR_Pause                    F12
+define TIR_Pause                    PULSE+L_CTL+L_SHIFT+INS
+define TIR_Center                   PULSE+L_CTL+L_SHIFT+HOME
+define TIR_Precision                PULSE+L_CTL+L_SHIFT+PGUP
+
 
 //
 // TeamSpeak/Mumble
 //
 
-define TS_PushToTalk                L_CTL+PGUP
-define TS_Mute                      PULSE+L_CTL+PGDN
+define TS_PushToTalk                PULSE+L_CTL+L_SHIFT+END
+define TS_Mute                      PULSE+L_CTL+L_SHIFT+PGDN

@@ -15,9 +15,10 @@ define Trigger_1                               DX1
 define Trigger_2                               DX6
 
 define Weapon_Release                          DX2
-define Nose_Wheel_Steering                     0   // DX3
-define Pinky_Lever                             0   // DX4
+define Nose_Wheel_Steering                     DX3
+define Pinky_Lever                             DX4
 define Master_Mode_Control                     DX5
+define Master_Mode_Control_TEMPO               DX32
 
 define Target_Management_UP                    DX7
 define Target_Management_RIGHT                 DX8
@@ -50,33 +51,33 @@ define POV_RIGHT                               DXHATRIGHT
 define POV_DOWN                                DXHATDOWN
 define POV_LEFT                                DXHATLEFT
 
-define POV_AUX1_UP                             0
-define POV_AUX1_RIGHT                          0
-define POV_AUX1_DOWN                           0
-define POV_AUX1_LEFT                           0
+define POV_AUX1_UP                             DX24
+define POV_AUX1_RIGHT                          DX25
+define POV_AUX1_DOWN                           DX26
+define POV_AUX1_LEFT                           DX27
 
-define POV_AUX2_UP                             0
-define POV_AUX2_RIGHT                          0
-define POV_AUX2_DOWN                           0
-define POV_AUX2_LEFT                           0
+define POV_AUX2_UP                             DX28
+define POV_AUX2_RIGHT                          DX29
+define POV_AUX2_DOWN                           DX30
+define POV_AUX2_LEFT                           DX31
 
 // Cougar Throttle buttons mapping
 
-define RadioSwitch_UHF                         DX24
-define RadioSwitch_IFF_IN                      DX25
-define RadioSwitch_VHF                         DX26
-define RadioSwitch_IFF_OUT                     DX27
+define RadioSwitch_UHF                         0
+define RadioSwitch_IFF_IN                      0
+define RadioSwitch_VHF                         0
+define RadioSwitch_IFF_OUT                     0
 
-define Dogfight_FORWARD                        DX28
-define Dogfight_BACKWARD                       DX29
+define Dogfight_FORWARD                        0
+define Dogfight_BACKWARD                       0
 define Dogfight_MIDDLE                         0
 
-define Cougar_Speedbreak_FORWARD               DX30
-define Cougar_Speedbreak_BACKWARD              DX31
+define Cougar_Speedbreak_FORWARD               0
+define Cougar_Speedbreak_BACKWARD              0
 define Cougar_Speedbreak_MIDDLE                0
 
-define RDR_Cursor_PRESSED                      DX32
-define RNG_PRESSED                             DX4
+define RDR_Cursor_PRESSED                      0
+define RNG_PRESSED                             0
 
 // Warthog Throttle buttons mapping
 

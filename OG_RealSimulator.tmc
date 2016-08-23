@@ -13,14 +13,14 @@ include "helpers.tmh"
 int main() {
     // Exclude unused devices
     
-    // Configure(&HCougar,      MODE_EXCLUDED);
+       Configure(&HCougar,      MODE_EXCLUDED);
     // Configure(&Joystick,     MODE_EXCLUDED);
     // Configure(&Throttle,     MODE_EXCLUDED);
        Configure(&T16000,       MODE_EXCLUDED);
 	   Configure(&T16000L,      MODE_EXCLUDED);
     // Configure(&LMFD,         MODE_EXCLUDED);
     // Configure(&RMFD,         MODE_EXCLUDED);
-	   Configure(&TFRPRudder,   MODE_EXCLUDED);
+       Configure(&TFRPRudder,   MODE_EXCLUDED);
 	   Configure(&TWCSThrottle, MODE_EXCLUDED);
 
     // Initialize
@@ -33,7 +33,7 @@ int main() {
         
     MapWarthogJoystick();
     // MapWarthogThrottle();
-    MapCougarThrottle();
+    // MapCougarThrottle();
 }
 
 int MapWarthogJoystick() {
@@ -54,7 +54,7 @@ int MapWarthogJoystick() {
 	MapKey(&Joystick, S2, Weapon_Release);
 	MapKey(&Joystick, S3, Nose_Wheel_Steering);
 	MapKey(&Joystick, S4, Pinky_Lever);
-	MapKey(&Joystick, S1, Master_Mode_Control);
+	MapKey(&Joystick, S1, TEMPO(Master_Mode_Control, Master_Mode_Control_TEMPO, TEMPO_DELAY));
 	
 	MapKey(&Joystick, H2U, Target_Management_UP);
 	MapKey(&Joystick, H2R, Target_Management_RIGHT);
